@@ -1,6 +1,6 @@
-package benchmarks.baseline.amortized.query
+package benchmarks.baseline.amortized
 
-import benchmarks.BENCHMARK_SIZE_S
+import benchmarks.*
 import org.openjdk.jmh.annotations.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -11,19 +11,29 @@ import java.util.concurrent.TimeUnit
 @Warmup(iterations = 5)
 @Measurement(iterations = 5)
 @State(Scope.Benchmark)
-open class Query_S {
-    private val listSize = BENCHMARK_SIZE_S
-    private val listHalfSize = listSize / 2
+open class Query {
+
+    @Param(BENCHMARK_SIZE_XS.toString(),
+            BENCHMARK_SIZE_S.toString(),
+            BENCHMARK_SIZE_M.toString(),
+            BENCHMARK_SIZE_L.toString(),
+            BENCHMARK_SIZE_XL.toString())
+    var listSize: Int = 0
+
+    var listHalfSize: Int = 0
 
     var list = LinkedList<String>()
     var element = ""
 
     @Setup()
     fun prepare() {
+        assert(list.isEmpty())
+
         val random = Random()
         repeat(times = listSize) {
             list.addFirst(random.nextInt().toString())
         }
+        listHalfSize = listSize / 2
         element = list[listHalfSize]
     }
 
@@ -64,12 +74,12 @@ open class Query_S {
     }
 
     @Benchmark
-    fun getAtIntex(): String {
+    fun getAtIndex(): String {
         return list.get(listHalfSize)
     }
 
     @Benchmark
-    fun indexOfElemant(): Int {
+    fun indexOfElement(): Int {
         return list.indexOf(element)
     }
 

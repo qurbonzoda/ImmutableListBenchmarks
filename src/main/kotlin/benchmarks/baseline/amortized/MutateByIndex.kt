@@ -1,6 +1,6 @@
-package benchmarks.baseline.amortized.mutateByIndex
+package benchmarks.baseline.amortized
 
-import benchmarks.BENCHMARK_SIZE_S
+import benchmarks.*
 import org.openjdk.jmh.annotations.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -11,19 +11,25 @@ import java.util.concurrent.TimeUnit
 @Warmup(iterations = 5)
 @Measurement(iterations = 5)
 @State(Scope.Thread)
-open class MutateByIndex_S {
-    private val listSize = BENCHMARK_SIZE_S
-    private val listHalfSize = listSize / 2
+open class MutateByIndex {
+
+    @Param(BENCHMARK_SIZE_XS.toString(),
+            BENCHMARK_SIZE_S.toString(),
+            BENCHMARK_SIZE_M.toString(),
+            BENCHMARK_SIZE_L.toString(),
+            BENCHMARK_SIZE_XL.toString())
+    var listSize: Int = 0
+
+    var listHalfSize: Int = 0
 
     var list = LinkedList<String>()
-    var size = 0
 
     @Setup(Level.Iteration)
     fun prepare() {
         repeat(times = listSize) {
             list.addFirst("some element")
         }
-        size = listSize
+        listHalfSize = listSize / 2
     }
 
     @Benchmark
