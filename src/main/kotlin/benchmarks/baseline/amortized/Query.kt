@@ -25,9 +25,9 @@ open class Query {
     var list = LinkedList<String>()
     var element = ""
 
-    @Setup()
+    @Setup(Level.Trial)
     fun prepare() {
-        assert(list.isEmpty())
+        list.clear()
 
         val random = Random()
         repeat(times = listSize) {

@@ -21,20 +21,20 @@ open class Query {
             BENCHMARK_SIZE_XL.toString())
     var listSize: Int = 0
 
-//    var listHalfSize: Int = 0
+    var listHalfSize: Int = 0
 
     var deque = emptyDeque<String>()
 //    var element = ""
 
-    @Setup()
+    @Setup(Level.Trial)
     fun prepare() {
-        assert(deque.isEmpty())
+        deque = emptyDeque()
 
         val random = Random()
         repeat(times = listSize) {
             deque = deque.addFirst(random.nextInt().toString())
         }
-//        listHalfSize = listSize / 2
+        listHalfSize = listSize / 2
 //        element = list[listHalfSize]
     }
 
@@ -73,12 +73,12 @@ open class Query {
 //        val quarter = (listHalfSize shr 1)
 //        return list.subList(listHalfSize - quarter, listHalfSize + quarter)
 //    }
-//
-//    @Benchmark
-//    fun getAtIndex(): String {
-//        return list.get(listHalfSize)
-//    }
-//
+
+    @Benchmark
+    fun getAtIndex(): String {
+        return deque.get(listHalfSize)
+    }
+
 //    @Benchmark
 //    fun indexOfElement(): Int {
 //        return list.indexOf(element)

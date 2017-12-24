@@ -26,6 +26,7 @@ open class MutateByIndex {
 
     @Setup(Level.Iteration)
     fun prepare() {
+        list.clear()
         repeat(times = listSize) {
             list.addFirst("some element")
         }

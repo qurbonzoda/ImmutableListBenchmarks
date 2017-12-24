@@ -55,7 +55,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <dependency>
             <groupId>com.github.qurbonzoda</groupId>
             <artifactId>PersistentDeque</artifactId>
-            <version>d4ed7e081fd998d4db7e0080691c42a51d950bc8</version>
+            <version>bb908d51696e976429606223fb35372477f05533</version>
         </dependency>
         <dependency>
             <groupId>org.openjdk.jmh</groupId>

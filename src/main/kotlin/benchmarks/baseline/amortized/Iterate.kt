@@ -22,8 +22,9 @@ open class Iterate {
             BENCHMARK_SIZE_XL.toString())
     var listSize: Int = 0
 
-    @Setup()
+    @Setup(Level.Trial)
     fun prepare() {
+        list.clear()
         repeat(times = listSize) {
             list.addFirst("some element")
         }
