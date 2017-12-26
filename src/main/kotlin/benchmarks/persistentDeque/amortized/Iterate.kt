@@ -1,9 +1,9 @@
-package benchmarks.baseline.amortized
+package benchmarks.persistentDeque.amortized
 
 import benchmarks.*
 import org.openjdk.jmh.annotations.*
 import org.openjdk.jmh.infra.Blackhole
-import java.util.*
+import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 @Measurement(iterations = 5)
 @State(Scope.Benchmark)
 open class Iterate {
-    var list = LinkedList<String>()
+    var deque = emptyDeque<String>()
 
     @Param(BENCHMARK_SIZE_XS.toString(),
             BENCHMARK_SIZE_S.toString(),
@@ -24,15 +24,15 @@ open class Iterate {
 
     @Setup(Level.Trial)
     fun prepare() {
-        list.clear()
+        deque = emptyDeque()
         repeat(times = listSize) {
-            list.addFirst("some element")
+            deque = deque.addFirst("some element")
         }
     }
 
     @Benchmark
     fun firstToLast(bh: Blackhole) {
-        val iterator = list.listIterator()
+        val iterator = deque.listIterator()
 
         while (iterator.hasNext()) {
             bh.consume(iterator.next())
@@ -41,7 +41,7 @@ open class Iterate {
 
     @Benchmark
     fun lastToFirst(bh: Blackhole) {
-        val iterator = list.listIterator(listSize)
+        val iterator = deque.listIterator(listSize)
 
         while (iterator.hasPrevious()) {
             bh.consume(iterator.previous())
