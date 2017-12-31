@@ -3,8 +3,6 @@ package benchmarks.pcollections.consPStack.remove
 import benchmarks.BENCHMARK_SIZE_L
 import org.openjdk.jmh.annotations.*
 import org.pcollections.ConsPStack
-import persistentDeque.PersistentDeque
-import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)

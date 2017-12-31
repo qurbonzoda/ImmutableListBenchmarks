@@ -60,17 +60,17 @@ open class Query {
     }
 
     @Benchmark
-    fun prefix(): List<String> {
+    fun prefix(): ConsPStack<String> {
         return pStack.subList(0, listHalfSize)
     }
 
     @Benchmark
-    fun suffix(): List<String> {
+    fun suffix(): ConsPStack<String> {
         return pStack.subList(listHalfSize, listSize)
     }
 
     @Benchmark
-    fun subList(): List<String> {
+    fun subList(): ConsPStack<String> {
         val quarter = (listHalfSize shr 1)
         return pStack.subList(listHalfSize - quarter, listHalfSize + quarter)
     }
@@ -91,7 +91,7 @@ open class Query {
     }
 
     @Benchmark
-    fun concatenate(): List<String> {
-        return pStack + pStack
+    fun concatenate(): ConsPStack<String> {
+        return pStack.plusAll(pStack)
     }
 }
