@@ -1,23 +1,23 @@
-package benchmarks.persistentDeque.amortized.remove
+package benchmarks.persistentDeque.remove
 
-import benchmarks.BENCHMARK_SIZE_S
+import benchmarks.BENCHMARK_SIZE_XS
 import org.openjdk.jmh.annotations.*
 import persistentDeque.PersistentDeque
 import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
-@Warmup(iterations = 5, batchSize = BENCHMARK_SIZE_S)
-@Measurement(iterations = 5, batchSize = BENCHMARK_SIZE_S)
+@Warmup(iterations = 5, batchSize = BENCHMARK_SIZE_XS)
+@Measurement(iterations = 5, batchSize = BENCHMARK_SIZE_XS)
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
-open class Remove_S {
+open class Remove_XS {
     var deque = emptyDeque<String>()
 
     @Setup(Level.Iteration)
     fun prepare() {
-        repeat(times = BENCHMARK_SIZE_S) {
+        repeat(times = BENCHMARK_SIZE_XS) {
             deque = deque.addFirst("some element")
         }
     }

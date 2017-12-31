@@ -1,4 +1,4 @@
-package benchmarks.baseline.amortized.remove
+package benchmarks.baseline.add
 
 import benchmarks.BENCHMARK_SIZE_XS
 import org.openjdk.jmh.annotations.*
@@ -11,25 +11,23 @@ import java.util.concurrent.TimeUnit
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
-open class Remove_XS {
+open class Add_XS {
     var list = LinkedList<String>()
 
     @Setup(Level.Iteration)
     fun prepare() {
-        repeat(times = BENCHMARK_SIZE_XS) {
-            list.addFirst("some element")
-        }
+        list.clear()
     }
 
     @Benchmark
-    fun removeFirst(): List<String> {
-        list.removeFirst()
+    fun addFirst(): LinkedList<String> {
+        list.addFirst("some element")
         return list
     }
 
     @Benchmark
-    fun removeLast(): LinkedList<String> {
-        list.removeLast()
+    fun addLast(): LinkedList<String> {
+        list.addLast("some element")
         return list
     }
 }

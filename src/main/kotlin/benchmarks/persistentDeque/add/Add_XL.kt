@@ -1,4 +1,4 @@
-package benchmarks.persistentDeque.amortized.remove
+package benchmarks.persistentDeque.add
 
 import benchmarks.BENCHMARK_SIZE_XL
 import org.openjdk.jmh.annotations.*
@@ -12,25 +12,23 @@ import java.util.concurrent.TimeUnit
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
-open class Remove_XL {
+open class Add_XL {
     var deque = emptyDeque<String>()
 
     @Setup(Level.Iteration)
     fun prepare() {
-        repeat(times = BENCHMARK_SIZE_XL) {
-            deque = deque.addFirst("some element")
-        }
+        deque = emptyDeque()
     }
 
     @Benchmark
-    fun removeFirst(): PersistentDeque<String> {
-        deque = deque.removeFirst()
+    fun addFirst(): PersistentDeque<String> {
+        deque = deque.addFirst("some element")
         return deque
     }
 
     @Benchmark
-    fun removeLast(): PersistentDeque<String> {
-        deque = deque.removeLast()
+    fun addLast(): PersistentDeque<String> {
+        deque = deque.addLast("some element")
         return deque
     }
 }

@@ -1,18 +1,18 @@
-package benchmarks.persistentDeque.amortized.add
+package benchmarks.persistentDeque.add
 
-import benchmarks.BENCHMARK_SIZE_XL
+import benchmarks.BENCHMARK_SIZE_S
 import org.openjdk.jmh.annotations.*
 import persistentDeque.PersistentDeque
 import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
-@Warmup(iterations = 5, batchSize = BENCHMARK_SIZE_XL)
-@Measurement(iterations = 5, batchSize = BENCHMARK_SIZE_XL)
+@Warmup(iterations = 5, batchSize = BENCHMARK_SIZE_S)
+@Measurement(iterations = 5, batchSize = BENCHMARK_SIZE_S)
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
-open class Add_XL {
+open class Add_S {
     var deque = emptyDeque<String>()
 
     @Setup(Level.Iteration)

@@ -1,17 +1,17 @@
-package benchmarks.baseline.amortized.add
+package benchmarks.baseline.add
 
-import benchmarks.BENCHMARK_SIZE_XS
+import benchmarks.BENCHMARK_SIZE_M
 import org.openjdk.jmh.annotations.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
-@Warmup(iterations = 5, batchSize = BENCHMARK_SIZE_XS)
-@Measurement(iterations = 5, batchSize = BENCHMARK_SIZE_XS)
+@Warmup(iterations = 5, batchSize = BENCHMARK_SIZE_M)
+@Measurement(iterations = 5, batchSize = BENCHMARK_SIZE_M)
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
-open class Add_XS {
+open class Add_M {
     var list = LinkedList<String>()
 
     @Setup(Level.Iteration)

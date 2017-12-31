@@ -1,4 +1,4 @@
-package benchmarks.persistentDeque.amortized
+package benchmarks.persistentDeque
 
 import benchmarks.*
 import org.openjdk.jmh.annotations.*

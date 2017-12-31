@@ -1,8 +1,9 @@
-package benchmarks.baseline.amortized.add
+package benchmarks.persistentDeque.add
 
 import benchmarks.BENCHMARK_SIZE_M
 import org.openjdk.jmh.annotations.*
-import java.util.*
+import persistentDeque.PersistentDeque
+import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
@@ -12,22 +13,22 @@ import java.util.concurrent.TimeUnit
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
 open class Add_M {
-    var list = LinkedList<String>()
+    var deque = emptyDeque<String>()
 
     @Setup(Level.Iteration)
     fun prepare() {
-        list.clear()
+        deque = emptyDeque()
     }
 
     @Benchmark
-    fun addFirst(): LinkedList<String> {
-        list.addFirst("some element")
-        return list
+    fun addFirst(): PersistentDeque<String> {
+        deque = deque.addFirst("some element")
+        return deque
     }
 
     @Benchmark
-    fun addLast(): LinkedList<String> {
-        list.addLast("some element")
-        return list
+    fun addLast(): PersistentDeque<String> {
+        deque = deque.addLast("some element")
+        return deque
     }
 }

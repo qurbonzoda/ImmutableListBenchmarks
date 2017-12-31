@@ -1,4 +1,4 @@
-package benchmarks.baseline.amortized
+package benchmarks.baseline
 
 import benchmarks.*
 import org.openjdk.jmh.annotations.*
