@@ -30,7 +30,7 @@ open class Add {
     @Benchmark
     fun addFirst(): TreePVector<String> {
         repeat(times = listSize) {
-            pVector = pVector.plus("some element")
+            pVector = pVector.plus(0, "some element")
         }
         return pVector
     }
@@ -38,7 +38,7 @@ open class Add {
     @Benchmark
     fun addLast(): TreePVector<String> {
         repeat(times = listSize) {
-            pVector = pVector.plus(pVector.size, "some element")
+            pVector = pVector.plus("some element")
         }
         return pVector
     }
