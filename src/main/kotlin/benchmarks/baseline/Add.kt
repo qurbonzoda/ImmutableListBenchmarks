@@ -5,6 +5,7 @@ import org.openjdk.jmh.annotations.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+// java -jar target/benchmarks.jar persistentDeque.Add persistentDeque.Remove -wi 10 -i 10 -prof gc -rf csv -rff results/$(date +%Y.%m.%d-%H:%M:%S)-persistentDeque-add-remove.csv
 
 @Fork(1)
 @Warmup(iterations = 5)
