@@ -55,7 +55,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <dependency>
             <groupId>com.github.qurbonzoda</groupId>
             <artifactId>PersistentDeque</artifactId>
-            <version>c44b6bdea49f2dff9c4756244db5f34a0051b822</version>
+            <version>5a9373ba8356091c85212f383302402c492fdfca</version>
         </dependency>
         <dependency>
             <groupId>com.github.ilya-g</groupId>
