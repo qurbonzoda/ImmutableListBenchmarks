@@ -44,4 +44,13 @@ open class Remove {
         }
         return deque
     }
+
+    @Benchmark
+    fun removeFirstRemoveLast(): PersistentDeque<String> {
+        repeat(times = listSize shr 1) {
+            deque = deque.removeFirst()
+            deque = deque.removeLast()
+        }
+        return deque
+    }
 }

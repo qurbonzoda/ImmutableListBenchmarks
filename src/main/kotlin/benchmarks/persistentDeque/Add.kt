@@ -43,4 +43,13 @@ open class Add {
         }
         return deque
     }
+
+    @Benchmark
+    fun addFirstAddLast(): PersistentDeque<String> {
+        repeat(times = listSize shr 1) {
+            deque = deque.addFirst("some element")
+            deque = deque.addLast("some element")
+        }
+        return deque
+    }
 }

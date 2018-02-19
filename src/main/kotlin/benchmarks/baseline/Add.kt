@@ -43,4 +43,13 @@ open class Add {
         }
         return list
     }
+
+    @Benchmark
+    fun addFirstAddLast(): LinkedList<String> {
+        repeat(times = listSize shr 1) {
+            list.addFirst("some element")
+            list.addLast("some element")
+        }
+        return list
+    }
 }
