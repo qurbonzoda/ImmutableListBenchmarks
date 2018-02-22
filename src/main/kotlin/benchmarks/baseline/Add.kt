@@ -5,7 +5,7 @@ import org.openjdk.jmh.annotations.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-// java -jar target/benchmarks.jar persistentDeque.Add persistentDeque.Remove -wi 10 -i 10 -prof gc -rf csv -rff results/$(date +%Y.%m.%d-%H:%M:%S)-persistentDeque-add-remove.csv
+// java -jar target/benchmarks.jar persistentDeque.Add persistentDeque.Remove -wi 10 -i 10 -prof gc -rf csv -rff results/stack-based-buffers/$(date +%Y.%m.%d-%H:%M:%S)-persistentDeque-add-remove.csv
 
 @Fork(1)
 @Warmup(iterations = 5)
@@ -39,6 +39,15 @@ open class Add {
     @Benchmark
     fun addLast(): LinkedList<String> {
         repeat(times = listSize) {
+            list.addLast("some element")
+        }
+        return list
+    }
+
+    @Benchmark
+    fun addFirstAddLast(): LinkedList<String> {
+        repeat(times = listSize shr 1) {
+            list.addFirst("some element")
             list.addLast("some element")
         }
         return list

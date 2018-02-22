@@ -42,4 +42,13 @@ open class Add {
         }
         return rrbTree
     }
+
+    @Benchmark
+    fun addFirstAddLast(): RrbTree<String> {
+        repeat(times = listSize shr 1) {
+            rrbTree = rrbTree.insert(0, "some element")
+            rrbTree = rrbTree.append("some element")
+        }
+        return rrbTree
+    }
 }

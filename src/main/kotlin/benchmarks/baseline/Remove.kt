@@ -43,4 +43,13 @@ open class Remove {
         }
         return list
     }
+
+    @Benchmark
+    fun removeFirstRemoveLast(): LinkedList<String> {
+        repeat(times = listSize shr 1) {
+            list.removeFirst()
+            list.removeLast()
+        }
+        return list
+    }
 }

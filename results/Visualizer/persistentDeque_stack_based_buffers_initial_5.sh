@@ -1,0 +1,1 @@
+python main.py -input /Users/bigdreamer/Programming/ImmutableListBenchmarks/results/stack-based-buffers/2018.02.07-08:56:55-persistentDeque-add-remove-initial.csv -name "stack_based_buffers_initial_5"

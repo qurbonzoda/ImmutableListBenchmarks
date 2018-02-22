@@ -43,4 +43,13 @@ open class Remove {
         }
         return rrbTree
     }
+
+    @Benchmark
+    fun removeFirstRemoveLast(): RrbTree<String> {
+        repeat(times = listSize shr 1) {
+            rrbTree = rrbTree.without(0)
+            rrbTree = rrbTree.without(rrbTree.size - 1)
+        }
+        return rrbTree
+    }
 }
