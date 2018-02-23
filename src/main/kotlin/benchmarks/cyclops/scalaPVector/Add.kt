@@ -38,4 +38,13 @@ open class Add {
         }
         return pVector
     }
+
+    @Benchmark
+    fun addFirstAddLast(): ScalaPVector<String> {
+        repeat(times = listSize shr 1) {
+            pVector = pVector.plus(0, "some element")
+            pVector = pVector.plus("some element")
+        }
+        return pVector
+    }
 }

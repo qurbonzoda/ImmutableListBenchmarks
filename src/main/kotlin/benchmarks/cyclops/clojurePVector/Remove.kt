@@ -41,4 +41,13 @@ open class Remove {
         }
         return pVector
     }
+
+    @Benchmark
+    fun removeFirstRemoveLast(): PVector<String> {
+        repeat(times = listSize shr 1) {
+            pVector = pVector.minus(0)
+            pVector = pVector.minus(pVector.size - 1)
+        }
+        return pVector
+    }
 }

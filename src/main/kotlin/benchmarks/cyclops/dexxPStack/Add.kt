@@ -37,4 +37,13 @@ open class Add {
         }
         return pStack
     }
+
+    @Benchmark
+    fun addFirstAddLast(): DexxPStack<String> {
+        repeat(times = listSize shr 1) {
+            pStack = pStack.plus(0, "some element")
+            pStack = pStack.plus("some element")
+        }
+        return pStack
+    }
 }

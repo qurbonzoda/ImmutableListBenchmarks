@@ -40,4 +40,13 @@ open class Remove {
         }
         return pStack
     }
+
+    @Benchmark
+    fun removeFirstRemoveLast(): PStack<String> {
+        repeat(times = listSize shr 1) {
+            pStack = pStack.minus(0)
+            pStack = pStack.minus(pStack.size - 1)
+        }
+        return pStack
+    }
 }
