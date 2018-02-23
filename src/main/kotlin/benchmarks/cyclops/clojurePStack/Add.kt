@@ -13,11 +13,7 @@ import java.util.concurrent.TimeUnit
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
 open class Add {
-    @Param(BENCHMARK_SIZE_XS.toString(),
-            BENCHMARK_SIZE_S.toString(),
-            BENCHMARK_SIZE_M.toString(),
-            BENCHMARK_SIZE_L.toString(),
-            BENCHMARK_SIZE_XL.toString())
+    @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50, BM_100, BM_1000)
     var listSize: Int = 0
 
     var pStack = ClojurePStack.emptyPStack<String>()

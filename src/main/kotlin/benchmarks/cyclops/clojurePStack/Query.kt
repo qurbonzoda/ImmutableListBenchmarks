@@ -3,22 +3,17 @@ package benchmarks.cyclops.clojurePStack
 import benchmarks.*
 import com.aol.cyclops.clojure.collections.ClojurePStack
 import org.openjdk.jmh.annotations.*
-import java.util.Random
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
-@BenchmarkMode(Mode.AverageTime)
 @Fork(1)
 @Warmup(iterations = 5)
 @Measurement(iterations = 5)
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Benchmark)
 open class Query {
-
-    @Param(BENCHMARK_SIZE_XS.toString(),
-            BENCHMARK_SIZE_S.toString(),
-            BENCHMARK_SIZE_M.toString(),
-            BENCHMARK_SIZE_L.toString(),
-            BENCHMARK_SIZE_XL.toString())
+    @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50, BM_100, BM_1000)
     var listSize: Int = 0
 
     var listHalfSize: Int = 0

@@ -1,7 +1,15 @@
 package benchmarks
 
-const val BENCHMARK_SIZE_XS = 3
-const val BENCHMARK_SIZE_S  = 15
-const val BENCHMARK_SIZE_M  = 1000
-const val BENCHMARK_SIZE_L  = 100000
-const val BENCHMARK_SIZE_XL = 10000000
+const val BM_1 = "1"
+const val BM_3 = "3"
+const val BM_6 = "6"
+const val BM_10 = "10"
+const val BM_15 = "15"
+const val BM_25 = "25"
+const val BM_50 = "50"
+const val BM_100 = "100"
+const val BM_1000 = "1000"
+const val BM_10000 = "10000"
+const val BM_100000 = "100000"
+const val BM_1000000 = "1000000"
+const val BM_10000000 = "10000000"
