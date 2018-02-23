@@ -17,11 +17,17 @@ open class Remove {
 
     var pStack = ClojurePStack.emptyPStack<String>()
 
+    private var preparedPStack = ClojurePStack.emptyPStack<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            pStack = pStack.plus("some element")
+        if (preparedPStack.size != listSize) {
+            preparedPStack = ClojurePStack.emptyPStack()
+            repeat(times = listSize) {
+                preparedPStack = preparedPStack.plus("some element")
+            }
         }
+        pStack = preparedPStack
     }
 
     @Benchmark

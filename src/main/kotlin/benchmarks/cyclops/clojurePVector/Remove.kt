@@ -19,11 +19,17 @@ open class Remove {
 
     var pVector: PVector<String> = ClojurePVector.emptyPVector()
 
+    private var preparedPVector = ClojurePVector.emptyPVector<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            pVector = pVector.plus("some element")
+        if (preparedPVector.size != listSize) {
+            preparedPVector = ClojurePVector.emptyPVector()
+            repeat(times = listSize) {
+                preparedPVector = preparedPVector.plus("some element")
+            }
         }
+        pVector = preparedPVector
     }
 
     @Benchmark

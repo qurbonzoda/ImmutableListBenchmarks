@@ -17,11 +17,17 @@ open class Remove {
 
     var pStack = ScalaPStack.emptyPStack<String>()
 
+    private var preparedPStack = ScalaPStack.emptyPStack<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            pStack = pStack.plus("some element")
+        if (preparedPStack.size != listSize) {
+            preparedPStack = ScalaPStack.emptyPStack()
+            repeat(times = listSize) {
+                preparedPStack = preparedPStack.plus("some element")
+            }
         }
+        pStack = preparedPStack
     }
 
     @Benchmark

@@ -18,11 +18,17 @@ open class Remove {
 
     var pStack: PStack<String> = DexxPStack.emptyPStack()
 
+    private var preparedPStack = DexxPStack.emptyPStack<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            pStack = pStack.plus("some element")
+        if (preparedPStack.size != listSize) {
+            preparedPStack = DexxPStack.emptyPStack()
+            repeat(times = listSize) {
+                preparedPStack = preparedPStack.plus("some element")
+            }
         }
+        pStack = preparedPStack
     }
 
     @Benchmark

@@ -19,11 +19,17 @@ open class Remove {
 
     var deque = emptyDeque<String>()
 
+    private var preparedDeque = emptyDeque<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            deque = deque.addFirst("some element")
+        if (preparedDeque.size != listSize) {
+            preparedDeque = emptyDeque()
+            repeat(times = listSize) {
+                preparedDeque = preparedDeque.addFirst("some element")
+            }
         }
+        deque = preparedDeque
     }
 
     @Benchmark

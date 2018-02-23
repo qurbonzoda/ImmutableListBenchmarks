@@ -19,11 +19,17 @@ open class Remove {
 
     var pVector: PVector<String> = JavaSlangPVector.emptyPVector()
 
+    private var preparedPVector: PVector<String> = JavaSlangPVector.emptyPVector()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            pVector = pVector.plus("some element")
+        if (preparedPVector.size != listSize) {
+            preparedPVector = JavaSlangPVector.emptyPVector()
+            repeat(times = listSize) {
+                preparedPVector = preparedPVector.plus("some element")
+            }
         }
+        pVector = preparedPVector
     }
 
     @Benchmark

@@ -18,11 +18,17 @@ open class Remove {
 
     var rrbTree = RrbTree.empty<String>()
 
+    private var preparedRrbTree = RrbTree.empty<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            rrbTree = rrbTree.append("some element")
+        if (preparedRrbTree.size != listSize) {
+            preparedRrbTree = RrbTree.empty()
+            repeat(times = listSize) {
+                preparedRrbTree = preparedRrbTree.append("some element")
+            }
         }
+        rrbTree = preparedRrbTree
     }
 
     @Benchmark

@@ -18,11 +18,17 @@ open class Remove {
 
     var pVector = DexxPVector.emptyPVector<String>()
 
+    private var preparedPVector = DexxPVector.emptyPVector<String>()
+
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            pVector = pVector.plus("some element")
+        if (preparedPVector.size != listSize) {
+            preparedPVector = DexxPVector.emptyPVector()
+            repeat(times = listSize) {
+                preparedPVector = preparedPVector.plus("some element")
+            }
         }
+        pVector = preparedPVector
     }
 
     @Benchmark
