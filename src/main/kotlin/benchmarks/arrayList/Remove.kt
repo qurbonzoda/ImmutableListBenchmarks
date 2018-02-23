@@ -18,11 +18,7 @@ open class Remove {
 
     @Setup(Level.Invocation)
     fun prepare() {
-        val listPrepare = mutableListOf<String>()
-        repeat(times = listSize) {
-            listPrepare.add("some element")
-        }
-        list = listPrepare.toList()
+        list = List(listSize, { "some element" })
     }
 
     @Benchmark

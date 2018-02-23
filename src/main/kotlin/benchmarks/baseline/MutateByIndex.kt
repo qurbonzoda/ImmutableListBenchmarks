@@ -20,12 +20,9 @@ open class MutateByIndex {
 
     var list = LinkedList<String>()
 
-    @Setup(Level.Iteration)
+    @Setup(Level.Trial)
     fun prepare() {
-        list.clear()
-        repeat(times = listSize) {
-            list.addFirst("some element")
-        }
+        list = LinkedList(List(listSize, { "some element" }))
         listHalfSize = listSize / 2
     }
 

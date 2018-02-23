@@ -20,9 +20,7 @@ open class Remove {
 
     @Setup(Level.Invocation)
     fun prepare() {
-        repeat(times = listSize) {
-            list.addFirst("some element")
-        }
+        list = LinkedList(List(listSize, { "some element" }))
     }
 
     @Benchmark

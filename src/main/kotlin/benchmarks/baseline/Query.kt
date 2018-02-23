@@ -23,12 +23,8 @@ open class Query {
 
     @Setup(Level.Trial)
     fun prepare() {
-        list.clear()
-
         val random = Random()
-        repeat(times = listSize) {
-            list.addFirst(random.nextInt().toString())
-        }
+        list = LinkedList(List(listSize, { random.nextInt().toString() }))
         listHalfSize = listSize / 2
         element = list[listHalfSize]
     }

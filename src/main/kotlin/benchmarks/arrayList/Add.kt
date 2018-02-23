@@ -19,7 +19,7 @@ open class Add {
 
     @Setup(Level.Invocation)
     fun prepare() {
-        list = ArrayList()
+        list = emptyList()
     }
 
     @Benchmark

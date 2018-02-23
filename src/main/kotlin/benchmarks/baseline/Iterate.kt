@@ -21,10 +21,7 @@ open class Iterate {
 
     @Setup(Level.Trial)
     fun prepare() {
-        list.clear()
-        repeat(times = listSize) {
-            list.addFirst("some element")
-        }
+        list = LinkedList(List(listSize, { "some element" }))
     }
 
     @Benchmark

@@ -22,7 +22,7 @@ open class Add {
 
     @Setup(Level.Invocation)
     fun prepare() {
-        list.clear()
+        list = LinkedList()
     }
 
     @Benchmark
