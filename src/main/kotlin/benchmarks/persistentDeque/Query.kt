@@ -1,8 +1,8 @@
 package benchmarks.persistentDeque
 
 import benchmarks.*
+import deque.emptyDeque
 import org.openjdk.jmh.annotations.*
-import persistentDeque.emptyDeque
 import java.util.*
 import java.util.concurrent.TimeUnit
 

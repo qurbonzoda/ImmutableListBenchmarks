@@ -1,9 +1,9 @@
 package benchmarks.persistentDeque
 
 import benchmarks.*
+import deque.ImmutableDeque
+import deque.emptyDeque
 import org.openjdk.jmh.annotations.*
-import persistentDeque.PersistentDeque
-import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
@@ -33,7 +33,7 @@ open class Remove {
     }
 
     @Benchmark
-    fun removeFirst(): PersistentDeque<String> {
+    fun removeFirst(): ImmutableDeque<String> {
         repeat(times = listSize) {
             deque = deque.removeFirst()
         }
@@ -41,7 +41,7 @@ open class Remove {
     }
 
     @Benchmark
-    fun removeLast(): PersistentDeque<String> {
+    fun removeLast(): ImmutableDeque<String> {
         repeat(times = listSize) {
             deque = deque.removeLast()
         }
@@ -49,7 +49,7 @@ open class Remove {
     }
 
     @Benchmark
-    fun removeFirstRemoveLast(): PersistentDeque<String> {
+    fun removeFirstRemoveLast(): ImmutableDeque<String> {
         repeat(times = listSize shr 1) {
             deque = deque.removeFirst()
             deque = deque.removeLast()

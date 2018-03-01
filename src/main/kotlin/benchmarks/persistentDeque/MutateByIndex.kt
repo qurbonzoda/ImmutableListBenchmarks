@@ -1,9 +1,9 @@
 package benchmarks.persistentDeque
 
 import benchmarks.*
+import deque.ImmutableDeque
+import deque.emptyDeque
 import org.openjdk.jmh.annotations.*
-import persistentDeque.PersistentDeque
-import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
@@ -31,7 +31,7 @@ open class MutateByIndex {
     }
 
     @Benchmark
-    fun setAtIndex(): PersistentDeque<String> {
+    fun setAtIndex(): ImmutableDeque<String> {
         return deque.set(listHalfSize, "another element")
     }
 

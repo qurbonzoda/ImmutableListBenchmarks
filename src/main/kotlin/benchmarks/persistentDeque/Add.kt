@@ -1,9 +1,9 @@
 package benchmarks.persistentDeque
 
 import benchmarks.*
+import deque.ImmutableDeque
+import deque.emptyDeque
 import org.openjdk.jmh.annotations.*
-import persistentDeque.PersistentDeque
-import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
@@ -25,7 +25,7 @@ open class Add {
     }
 
     @Benchmark
-    fun addFirst(): PersistentDeque<String> {
+    fun addFirst(): ImmutableDeque<String> {
         repeat(times = listSize) {
             deque = deque.addFirst("some element")
         }
@@ -33,7 +33,7 @@ open class Add {
     }
 
     @Benchmark
-    fun addLast(): PersistentDeque<String> {
+    fun addLast(): ImmutableDeque<String> {
         repeat(times = listSize) {
             deque = deque.addLast("some element")
         }
@@ -41,7 +41,7 @@ open class Add {
     }
 
     @Benchmark
-    fun addFirstAddLast(): PersistentDeque<String> {
+    fun addFirstAddLast(): ImmutableDeque<String> {
         repeat(times = listSize shr 1) {
             deque = deque.addFirst("some element")
             deque = deque.addLast("some element")

@@ -1,9 +1,9 @@
 package benchmarks.persistentDeque
 
 import benchmarks.*
+import deque.emptyDeque
 import org.openjdk.jmh.annotations.*
 import org.openjdk.jmh.infra.Blackhole
-import persistentDeque.emptyDeque
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
