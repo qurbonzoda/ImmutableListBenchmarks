@@ -2,6 +2,7 @@ package benchmarks.paguro.rrbTree
 
 import benchmarks.*
 import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
 import org.organicdesign.fp.collections.RrbTree
 import java.util.concurrent.TimeUnit
 
@@ -45,6 +46,19 @@ open class Add {
         repeat(times = listSize shr 1) {
             rrbTree = rrbTree.insert(0, "some element")
             rrbTree = rrbTree.append("some element")
+        }
+        return rrbTree
+    }
+
+    @Benchmark
+    fun addLastAndIterate(bh: Blackhole): RrbTree<String> {
+        repeat(times = listSize) {
+            rrbTree = rrbTree.append("some element")
+        }
+        val iterator = rrbTree.listIterator()
+
+        while (iterator.hasNext()) {
+            bh.consume(iterator.next())
         }
         return rrbTree
     }

@@ -2,6 +2,7 @@ package benchmarks.baseline
 
 import benchmarks.*
 import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -46,6 +47,19 @@ open class Add {
         repeat(times = listSize shr 1) {
             list.addFirst("some element")
             list.addLast("some element")
+        }
+        return list
+    }
+
+    @Benchmark
+    fun addLastAndIterate(bh: Blackhole): List<String> {
+        repeat(times = listSize) {
+            list.addLast("some element")
+        }
+        val iterator = list.listIterator()
+
+        while (iterator.hasNext()) {
+            bh.consume(iterator.next())
         }
         return list
     }

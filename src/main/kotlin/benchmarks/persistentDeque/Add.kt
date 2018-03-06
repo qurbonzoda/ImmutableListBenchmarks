@@ -4,6 +4,7 @@ import benchmarks.*
 import deque.ImmutableDeque
 import deque.emptyDeque
 import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
@@ -45,6 +46,19 @@ open class Add {
         repeat(times = listSize shr 1) {
             deque = deque.addFirst("some element")
             deque = deque.addLast("some element")
+        }
+        return deque
+    }
+
+    @Benchmark
+    fun addLastAndIterate(bh: Blackhole): ImmutableDeque<String> {
+        repeat(times = listSize) {
+            deque = deque.addLast("some element")
+        }
+        val iterator = deque.listIterator()
+
+        while (iterator.hasNext()) {
+            bh.consume(iterator.next())
         }
         return deque
     }
