@@ -18,15 +18,11 @@ open class Add {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var deque = emptyDeque<String>()
-
-    @Setup(Level.Invocation)
-    fun prepare() {
-        deque = emptyDeque()
-    }
+    private val emptyDeque = emptyDeque<String>()
 
     @Benchmark
     fun addFirst(): ImmutableDeque<String> {
+        var deque = emptyDeque
         repeat(times = listSize) {
             deque = deque.addFirst("some element")
         }
@@ -35,6 +31,7 @@ open class Add {
 
     @Benchmark
     fun addLast(): ImmutableDeque<String> {
+        var deque = emptyDeque
         repeat(times = listSize) {
             deque = deque.addLast("some element")
         }
@@ -43,6 +40,7 @@ open class Add {
 
     @Benchmark
     fun addFirstAddLast(): ImmutableDeque<String> {
+        var deque = emptyDeque
         repeat(times = listSize shr 1) {
             deque = deque.addFirst("some element")
             deque = deque.addLast("some element")
@@ -52,13 +50,13 @@ open class Add {
 
     @Benchmark
     fun addLastAndIterate(bh: Blackhole): ImmutableDeque<String> {
+        var deque = emptyDeque
         repeat(times = listSize) {
             deque = deque.addLast("some element")
         }
-        val iterator = deque.listIterator()
 
-        while (iterator.hasNext()) {
-            bh.consume(iterator.next())
+        for (e in deque) {
+            bh.consume(e)
         }
         return deque
     }

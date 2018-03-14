@@ -3,6 +3,7 @@ package benchmarks.cyclops.scalaPVector
 import benchmarks.*
 import com.aol.cyclops.scala.collections.ScalaPVector
 import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
 import java.util.concurrent.TimeUnit
 
 @Fork(1)
@@ -16,15 +17,11 @@ open class Add {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var pVector = ScalaPVector.emptyPVector<String>()
-
-    @Setup(Level.Invocation)
-    fun prepare() {
-        pVector = ScalaPVector.emptyPVector()
-    }
+    private val emptyPVector = ScalaPVector.emptyPVector<String>()
 
     @Benchmark
     fun addFirst(): ScalaPVector<String> {
+        var pVector = emptyPVector
         repeat(times = listSize) {
             pVector = pVector.plus(0, "some element")
         }
@@ -33,6 +30,7 @@ open class Add {
 
     @Benchmark
     fun addLast(): ScalaPVector<String> {
+        var pVector = emptyPVector
         repeat(times = listSize) {
             pVector = pVector.plus("some element")
         }
@@ -41,9 +39,23 @@ open class Add {
 
     @Benchmark
     fun addFirstAddLast(): ScalaPVector<String> {
+        var pVector = emptyPVector
         repeat(times = listSize shr 1) {
             pVector = pVector.plus(0, "some element")
             pVector = pVector.plus("some element")
+        }
+        return pVector
+    }
+
+    @Benchmark
+    fun addLastAndIterate(bh: Blackhole): ScalaPVector<String> {
+        var pVector = emptyPVector
+        repeat(times = listSize) {
+            pVector = pVector.plus("some element")
+        }
+
+        for (e in pVector) {
+            bh.consume(e)
         }
         return pVector
     }

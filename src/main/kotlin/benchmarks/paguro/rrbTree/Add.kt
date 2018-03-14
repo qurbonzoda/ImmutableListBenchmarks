@@ -18,15 +18,11 @@ open class Add {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var rrbTree = RrbTree.empty<String>()
-
-    @Setup(Level.Invocation)
-    fun prepare() {
-        rrbTree = RrbTree.empty<String>()
-    }
+    private val emptyRrbTree = RrbTree.empty<String>()
 
     @Benchmark
     fun addFirst(): RrbTree<String> {
+        var rrbTree = emptyRrbTree
         repeat(times = listSize) {
             rrbTree = rrbTree.insert(0, "some element")
         }
@@ -35,6 +31,7 @@ open class Add {
 
     @Benchmark
     fun addLast(): RrbTree<String> {
+        var rrbTree = emptyRrbTree
         repeat(times = listSize) {
             rrbTree = rrbTree.append("some element")
         }
@@ -43,6 +40,7 @@ open class Add {
 
     @Benchmark
     fun addFirstAddLast(): RrbTree<String> {
+        var rrbTree = emptyRrbTree
         repeat(times = listSize shr 1) {
             rrbTree = rrbTree.insert(0, "some element")
             rrbTree = rrbTree.append("some element")
@@ -52,13 +50,13 @@ open class Add {
 
     @Benchmark
     fun addLastAndIterate(bh: Blackhole): RrbTree<String> {
+        var rrbTree = emptyRrbTree
         repeat(times = listSize) {
             rrbTree = rrbTree.append("some element")
         }
-        val iterator = rrbTree.listIterator()
 
-        while (iterator.hasNext()) {
-            bh.consume(iterator.next())
+        for (e in rrbTree) {
+            bh.consume(e)
         }
         return rrbTree
     }

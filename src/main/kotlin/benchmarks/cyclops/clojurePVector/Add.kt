@@ -3,6 +3,7 @@ package benchmarks.cyclops.clojurePVector
 import benchmarks.*
 import com.aol.cyclops.clojure.collections.ClojurePVector
 import org.openjdk.jmh.annotations.*
+import org.openjdk.jmh.infra.Blackhole
 import org.pcollections.PVector
 import java.util.concurrent.TimeUnit
 
@@ -18,15 +19,11 @@ open class Add {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var pVector: PVector<String> = ClojurePVector.emptyPVector()
-
-    @Setup(Level.Invocation)
-    fun prepare() {
-        pVector = ClojurePVector.emptyPVector()
-    }
+    private val emptyPVector: PVector<String> = ClojurePVector.emptyPVector()
 
     @Benchmark
     fun addFirst(): PVector<String> {
+        var pVector = emptyPVector
         repeat(times = listSize) {
             pVector = pVector.plus(0, "some element")
         }
@@ -35,6 +32,7 @@ open class Add {
 
     @Benchmark
     fun addLast(): PVector<String> {
+        var pVector = emptyPVector
         repeat(times = listSize) {
             pVector = pVector.plus("some element")
         }
@@ -43,9 +41,23 @@ open class Add {
 
     @Benchmark
     fun addFirstAddLast(): PVector<String> {
+        var pVector = emptyPVector
         repeat(times = listSize shr 1) {
             pVector = pVector.plus(0, "some element")
             pVector = pVector.plus("some element")
+        }
+        return pVector
+    }
+
+    @Benchmark
+    fun addLastAndIterate(bh: Blackhole): PVector<String> {
+        var pVector = emptyPVector
+        repeat(times = listSize) {
+            pVector = pVector.plus("some element")
+        }
+
+        for (e in pVector) {
+            bh.consume(e)
         }
         return pVector
     }

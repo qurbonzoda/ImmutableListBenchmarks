@@ -16,23 +16,19 @@ open class Remove {
     @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50, BM_100, BM_1000)
     var listSize: Int = 0
 
-    var pVector: PVector<String> = JavaSlangPVector.emptyPVector()
+    private var filledPVector: PVector<String> = JavaSlangPVector.emptyPVector()
 
-    private var preparedPVector: PVector<String> = JavaSlangPVector.emptyPVector()
-
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     fun prepare() {
-        if (preparedPVector.size != listSize) {
-            preparedPVector = JavaSlangPVector.emptyPVector()
-            repeat(times = listSize) {
-                preparedPVector = preparedPVector.plus("some element")
-            }
+        filledPVector = JavaSlangPVector.emptyPVector()
+        repeat(times = listSize) {
+            filledPVector = filledPVector.plus("some element")
         }
-        pVector = preparedPVector
     }
 
     @Benchmark
     fun removeFirst(): PVector<String> {
+        var pVector = filledPVector
         repeat(times = listSize) {
             pVector = pVector.minus(0)
         }
@@ -41,6 +37,7 @@ open class Remove {
 
     @Benchmark
     fun removeLast(): PVector<String> {
+        var pVector = filledPVector
         repeat(times = listSize) {
             pVector = pVector.minus(pVector.size - 1)
         }
@@ -49,6 +46,7 @@ open class Remove {
 
     @Benchmark
     fun removeFirstRemoveLast(): PVector<String> {
+        var pVector = filledPVector
         repeat(times = listSize shr 1) {
             pVector = pVector.minus(0)
             pVector = pVector.minus(pVector.size - 1)

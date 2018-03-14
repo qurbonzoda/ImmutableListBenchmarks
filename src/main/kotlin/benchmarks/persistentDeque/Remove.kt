@@ -17,23 +17,19 @@ open class Remove {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var deque = emptyDeque<String>()
+    private var filledDeque = emptyDeque<String>()
 
-    private var preparedDeque = emptyDeque<String>()
-
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     fun prepare() {
-        if (preparedDeque.size != listSize) {
-            preparedDeque = emptyDeque()
-            repeat(times = listSize) {
-                preparedDeque = preparedDeque.addFirst("some element")
-            }
+        filledDeque = emptyDeque()
+        repeat(times = listSize) {
+            filledDeque = filledDeque.addFirst("some element")
         }
-        deque = preparedDeque
     }
 
     @Benchmark
     fun removeFirst(): ImmutableDeque<String> {
+        var deque = filledDeque
         repeat(times = listSize) {
             deque = deque.removeFirst()
         }
@@ -42,6 +38,7 @@ open class Remove {
 
     @Benchmark
     fun removeLast(): ImmutableDeque<String> {
+        var deque = filledDeque
         repeat(times = listSize) {
             deque = deque.removeLast()
         }
@@ -50,6 +47,7 @@ open class Remove {
 
     @Benchmark
     fun removeFirstRemoveLast(): ImmutableDeque<String> {
+        var deque = filledDeque
         repeat(times = listSize shr 1) {
             deque = deque.removeFirst()
             deque = deque.removeLast()

@@ -14,15 +14,16 @@ open class Remove {
     @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50, BM_100, BM_1000)
     var listSize: Int = 0
 
-    var list = listOf<String>()
+    private var filledList = listOf<String>()
 
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     fun prepare() {
-        list = List(listSize, { "some element" })
+        filledList = List(listSize, { "some element" })
     }
 
     @Benchmark
     fun removeFirst(): List<String> {
+        var list = filledList
         repeat(times = listSize) {
             list = list.drop(1)
         }
@@ -31,6 +32,7 @@ open class Remove {
 
     @Benchmark
     fun removeLast(): List<String> {
+        var list = filledList
         repeat(times = listSize) {
             list = list.dropLast(1)
         }
@@ -39,6 +41,7 @@ open class Remove {
 
     @Benchmark
     fun removeFirstRemoveLast(): List<String> {
+        var list = filledList
         repeat(times = listSize shr 1) {
             list = list.drop(1)
             list = list.dropLast(1)

@@ -15,48 +15,45 @@ open class Add {
     @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50, BM_100, BM_1000)
     var listSize: Int = 0
 
-    var list = listOf<String>()
-    private val someElement = listOf("some element")
-
-    @Setup(Level.Invocation)
-    fun prepare() {
-        list = emptyList()
-    }
+    private val emptyList = emptyList<String>()
 
     @Benchmark
     fun addFirst(): List<String> {
+        var list = emptyList
         repeat(times = listSize) {
-            list = someElement + list
+            list = listOf("some element") + list
         }
         return list
     }
 
     @Benchmark
     fun addLast(): List<String> {
+        var list = emptyList
         repeat(times = listSize) {
-            list += someElement
+            list += listOf("some element")
         }
         return list
     }
 
     @Benchmark
     fun addFirstAddLast(): List<String> {
+        var list = emptyList
         repeat(times = listSize shr 1) {
-            list = someElement + list
-            list += someElement
+            list = listOf("some element") + list
+            list += listOf("some element")
         }
         return list
     }
 
     @Benchmark
     fun addLastAndIterate(bh: Blackhole): List<String> {
+        var list = emptyList
         repeat(times = listSize) {
-            list = someElement + list
+            list += listOf("some element")
         }
-        val iterator = list.listIterator()
 
-        while (iterator.hasNext()) {
-            bh.consume(iterator.next())
+        for (e in list) {
+            bh.consume(e)
         }
         return list
     }

@@ -16,23 +16,19 @@ open class Remove {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var rrbTree = RrbTree.empty<String>()
+    private var filledRrbTree = RrbTree.empty<String>()
 
-    private var preparedRrbTree = RrbTree.empty<String>()
-
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     fun prepare() {
-        if (preparedRrbTree.size != listSize) {
-            preparedRrbTree = RrbTree.empty()
-            repeat(times = listSize) {
-                preparedRrbTree = preparedRrbTree.append("some element")
-            }
+        filledRrbTree = RrbTree.empty()
+        repeat(times = listSize) {
+            filledRrbTree = filledRrbTree.append("some element")
         }
-        rrbTree = preparedRrbTree
     }
 
     @Benchmark
     fun removeFirst(): RrbTree<String> {
+        var rrbTree = filledRrbTree
         repeat(times = listSize) {
             rrbTree = rrbTree.without(0)
         }
@@ -41,6 +37,7 @@ open class Remove {
 
     @Benchmark
     fun removeLast(): RrbTree<String> {
+        var rrbTree = filledRrbTree
         repeat(times = listSize) {
             rrbTree = rrbTree.without(rrbTree.size - 1)
         }
@@ -49,6 +46,7 @@ open class Remove {
 
     @Benchmark
     fun removeFirstRemoveLast(): RrbTree<String> {
+        var rrbTree = filledRrbTree
         repeat(times = listSize shr 1) {
             rrbTree = rrbTree.without(0)
             rrbTree = rrbTree.without(rrbTree.size - 1)

@@ -16,23 +16,19 @@ open class Remove {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var pVector = TreePVector.empty<String>()
+    private var filledPVector = TreePVector.empty<String>()
 
-    private var preparedPVector = TreePVector.empty<String>()
-
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     fun prepare() {
-        if (preparedPVector.size != listSize) {
-            preparedPVector = TreePVector.empty()
-            repeat(times = listSize) {
-                preparedPVector = preparedPVector.plus("some element")
-            }
+        filledPVector = TreePVector.empty()
+        repeat(times = listSize) {
+            filledPVector = filledPVector.plus("some element")
         }
-        pVector = preparedPVector
     }
 
     @Benchmark
     fun removeFirst(): TreePVector<String> {
+        var pVector = filledPVector
         repeat(times = listSize) {
             pVector = pVector.minus(0)
         }
@@ -41,6 +37,7 @@ open class Remove {
 
     @Benchmark
     fun removeLast(): TreePVector<String> {
+        var pVector = filledPVector
         repeat(times = listSize) {
             pVector = pVector.minus(pVector.size - 1)
         }
@@ -49,6 +46,7 @@ open class Remove {
 
     @Benchmark
     fun removeFirstRemoveLast(): TreePVector<String> {
+        var pVector = filledPVector
         repeat(times = listSize shr 1) {
             pVector = pVector.minus(0)
             pVector = pVector.minus(pVector.size - 1)

@@ -16,15 +16,16 @@ open class Remove {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    var list = LinkedList<String>()
+    private var filledList = LinkedList<String>()
 
-    @Setup(Level.Invocation)
+    @Setup(Level.Trial)
     fun prepare() {
-        list = LinkedList(List(listSize, { "some element" }))
+        filledList = LinkedList(List(listSize, { "some element" }))
     }
 
     @Benchmark
     fun removeFirst(): List<String> {
+        val list = filledList
         repeat(times = listSize) {
             list.removeFirst()
         }
@@ -33,6 +34,7 @@ open class Remove {
 
     @Benchmark
     fun removeLast(): LinkedList<String> {
+        val list = filledList
         repeat(times = listSize) {
             list.removeLast()
         }
@@ -41,6 +43,7 @@ open class Remove {
 
     @Benchmark
     fun removeFirstRemoveLast(): LinkedList<String> {
+        val list = filledList
         repeat(times = listSize shr 1) {
             list.removeFirst()
             list.removeLast()
