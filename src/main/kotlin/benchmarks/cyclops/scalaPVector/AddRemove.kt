@@ -28,17 +28,8 @@ open class AddRemove {
     }
 
     @Benchmark
-    fun addFirstRemoveFirst(): PVector<String> {
-        repeat(times = listSize) {
-            pVector = pVector.plus(0, "some element")
-            pVector = pVector.minus(0)
-        }
-        return pVector
-    }
-
-    @Benchmark
     fun addFirstRemoveLast(): PVector<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             pVector = pVector.plus(0, "some element")
             pVector = pVector.minus(pVector.size - 1)
         }
@@ -47,18 +38,9 @@ open class AddRemove {
 
     @Benchmark
     fun addLastRemoveFirst(): PVector<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             pVector = pVector.plus("some element")
             pVector = pVector.minus(0)
-        }
-        return pVector
-    }
-
-    @Benchmark
-    fun addLastRemoveLast(): PVector<String> {
-        repeat(times = listSize) {
-            pVector = pVector.plus("some element")
-            pVector = pVector.minus(pVector.size - 1)
         }
         return pVector
     }

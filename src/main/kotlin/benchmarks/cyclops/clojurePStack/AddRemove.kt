@@ -26,17 +26,8 @@ open class AddRemove {
     }
 
     @Benchmark
-    fun addFirstRemoveFirst(): ClojurePStack<String> {
-        repeat(times = listSize) {
-            pStack = pStack.plus(0, "some element")
-            pStack = pStack.minus(0)
-        }
-        return pStack
-    }
-
-    @Benchmark
     fun addFirstRemoveLast(): ClojurePStack<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             pStack = pStack.plus(0, "some element")
             pStack = pStack.minus(pStack.size - 1)
         }
@@ -45,18 +36,9 @@ open class AddRemove {
 
     @Benchmark
     fun addLastRemoveFirst(): ClojurePStack<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             pStack = pStack.plus("some element")
             pStack = pStack.minus(0)
-        }
-        return pStack
-    }
-
-    @Benchmark
-    fun addLastRemoveLast(): ClojurePStack<String> {
-        repeat(times = listSize) {
-            pStack = pStack.plus("some element")
-            pStack = pStack.minus(pStack.size - 1)
         }
         return pStack
     }

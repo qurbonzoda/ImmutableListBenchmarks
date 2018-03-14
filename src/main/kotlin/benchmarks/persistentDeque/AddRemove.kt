@@ -28,17 +28,8 @@ open class AddRemove {
     }
 
     @Benchmark
-    fun addFirstRemoveFirst(): ImmutableDeque<String> {
-        repeat(times = listSize) {
-            deque = deque.addFirst("some element")
-            deque = deque.removeFirst()
-        }
-        return deque
-    }
-
-    @Benchmark
     fun addFirstRemoveLast(): ImmutableDeque<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             deque = deque.addFirst("some element")
             deque = deque.removeLast()
         }
@@ -47,18 +38,9 @@ open class AddRemove {
 
     @Benchmark
     fun addLastRemoveFirst(): ImmutableDeque<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             deque = deque.addLast("some element")
             deque = deque.removeFirst()
-        }
-        return deque
-    }
-
-    @Benchmark
-    fun addLastRemoveLast(): ImmutableDeque<String> {
-        repeat(times = listSize) {
-            deque = deque.addLast("some element")
-            deque = deque.removeLast()
         }
         return deque
     }

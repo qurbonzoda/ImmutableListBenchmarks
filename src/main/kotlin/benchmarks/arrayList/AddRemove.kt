@@ -23,17 +23,8 @@ open class AddRemove {
     }
 
     @Benchmark
-    fun addFirstRemoveFirst(): List<String> {
-        repeat(times = listSize) {
-            list = someElement + list
-            list = list.drop(1)
-        }
-        return list
-    }
-
-    @Benchmark
     fun addFirstRemoveLast(): List<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             list = someElement + list
             list = list.dropLast(1)
         }
@@ -42,18 +33,9 @@ open class AddRemove {
 
     @Benchmark
     fun addLastRemoveFirst(): List<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             list += someElement
             list.drop(1)
-        }
-        return list
-    }
-
-    @Benchmark
-    fun addLastRemoveLast(): List<String> {
-        repeat(times = listSize) {
-            list += someElement
-            list = list.dropLast(1)
         }
         return list
     }

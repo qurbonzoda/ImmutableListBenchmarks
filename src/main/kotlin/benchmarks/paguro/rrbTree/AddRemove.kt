@@ -27,17 +27,8 @@ open class AddRemove {
     }
 
     @Benchmark
-    fun addFirstRemoveFirst(): RrbTree<String> {
-        repeat(times = listSize) {
-            rrbTree = rrbTree.insert(0, "some element")
-            rrbTree = rrbTree.without(0)
-        }
-        return rrbTree
-    }
-
-    @Benchmark
     fun addFirstRemoveLast(): RrbTree<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             rrbTree = rrbTree.insert(0, "some element")
             rrbTree = rrbTree.without(rrbTree.size - 1)
         }
@@ -46,18 +37,9 @@ open class AddRemove {
 
     @Benchmark
     fun addLastRemoveFirst(): RrbTree<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             rrbTree = rrbTree.append("some element")
             rrbTree = rrbTree.without(0)
-        }
-        return rrbTree
-    }
-
-    @Benchmark
-    fun addLastRemoveLast(): RrbTree<String> {
-        repeat(times = listSize) {
-            rrbTree = rrbTree.append("some element")
-            rrbTree = rrbTree.without(rrbTree.size - 1)
         }
         return rrbTree
     }

@@ -24,17 +24,8 @@ open class AddRemove {
     }
 
     @Benchmark
-    fun addFirstRemoveFirst(): LinkedList<String> {
-        repeat(times = listSize) {
-            list.addFirst("some element")
-            list.removeFirst()
-        }
-        return list
-    }
-
-    @Benchmark
     fun addFirstRemoveLast(): LinkedList<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             list.addFirst("some element")
             list.removeLast()
         }
@@ -43,18 +34,9 @@ open class AddRemove {
 
     @Benchmark
     fun addLastRemoveFirst(): LinkedList<String> {
-        repeat(times = listSize) {
+        repeat(times = listSize shr 1) {
             list.addLast("some element")
             list.removeFirst()
-        }
-        return list
-    }
-
-    @Benchmark
-    fun addLastRemoveLast(): LinkedList<String> {
-        repeat(times = listSize) {
-            list.addLast("some element")
-            list.removeLast()
         }
         return list
     }
