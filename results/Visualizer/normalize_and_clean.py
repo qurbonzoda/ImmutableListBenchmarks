@@ -21,7 +21,8 @@ benchmarks = {
     "persistentDeque_stack_based_buffers_size_12": "/Users/bigdreamer/Programming/ImmutableListBenchmarks/results/tc-ec2-34-242-6-107/2018.02.25-13-45-10-persistentDeque-add-remove-stack-based-buffers-size-12-benchmarks.csv",
     "persistentDeque_stack_based_buffers_size_15": "/Users/bigdreamer/Programming/ImmutableListBenchmarks/results/tc-ec2-34-242-6-107/2018.02.25-15-31-05-persistentDeque-add-remove-stack-based-buffers-size-15-benchmarks.csv",
     "persistentDeque_stack_based_buffers_size_9": "/Users/bigdreamer/Programming/ImmutableListBenchmarks/results/tc-ec2-34-242-6-107/2018.02.25-21:06:12-persistentDeque-add-remove-stack-based-buffers-size-9-benchmarks.csv",
-    "persistentDeque_stack_based_buffers_size_5": "/Users/bigdreamer/Programming/ImmutableListBenchmarks/results/tc-ec2-34-242-6-107/2018.02.26-00:55:31-persistentDeque-add-remove-stack-based-buffers-size-5-benchmarks.csv"
+    "persistentDeque_stack_based_buffers_size_5": "/Users/bigdreamer/Programming/ImmutableListBenchmarks/results/tc-ec2-34-242-6-107/2018.02.26-00:55:31-persistentDeque-add-remove-stack-based-buffers-size-5-benchmarks.csv",
+    "persistentDeque_SDO_size_25": "/Users/bigdreamer/Programming/ImmutableListBenchmarks/results/small-deque-optimization/2018.03.14-19-43-57-persistentDeque-add-remove-cleanup-size-25-benchmarks.csv",
 }
 
 benchmarkMethods = [".addFirst",
@@ -33,7 +34,8 @@ benchmarkMethods = [".addFirst",
                     ".addFirstRemoveFirst",
                     ".addFirstRemoveLast",
                     ".addLastRemoveFirst",
-                    ".addLastRemoveLast"]
+                    ".addLastRemoveLast",
+                    ".addLastAndIterate"]
 
 for benchmarkName, inputFile in benchmarks.items():
     df = pd.read_csv(inputFile, header=0)
