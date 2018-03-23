@@ -19,11 +19,15 @@ open class Add {
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
-    private val emptyLinkedList = LinkedList<String>()
+    private var list = LinkedList<String>()
+
+    @Setup(Level.Invocation)
+    fun prepare() {
+        list = LinkedList()
+    }
 
     @Benchmark
     fun addFirst(): LinkedList<String> {
-        val list = emptyLinkedList
         repeat(times = listSize) {
             list.addFirst("some element")
         }
@@ -32,7 +36,6 @@ open class Add {
 
     @Benchmark
     fun addLast(): LinkedList<String> {
-        val list = emptyLinkedList
         repeat(times = listSize) {
             list.addLast("some element")
         }
@@ -41,7 +44,6 @@ open class Add {
 
     @Benchmark
     fun addFirstAddLast(): LinkedList<String> {
-        val list = emptyLinkedList
         repeat(times = listSize shr 1) {
             list.addFirst("some element")
             list.addLast("some element")
@@ -51,7 +53,6 @@ open class Add {
 
     @Benchmark
     fun addLastAndIterate(bh: Blackhole): List<String> {
-        val list = emptyLinkedList
         repeat(times = listSize) {
             list.addLast("some element")
         }
