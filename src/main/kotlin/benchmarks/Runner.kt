@@ -11,22 +11,31 @@ import java.time.format.DateTimeFormatter
 fun main(args: Array<String>) {
     val impl = "persistentDeque"
     val benchTitle = ""
-    val outputFile = "results/small-deque-optimization/${currentDateTime()}-$impl-$benchTitle.csv"
+    val outputFile = "teamcityArtifacts/${currentDateTime()}-$impl-$benchTitle.csv"
 
-    val options = OptionsBuilder()
-//            .include("$impl.Add.addLast$")
-            .include("$impl.Add.*")
-            .include("$impl.Remove.*")
-            .include("$impl.AddRemove.*")
-            .warmupIterations(10)
-            .measurementIterations(10)
-            .warmupTime(TimeValue.seconds(1))
-            .measurementTime(TimeValue.seconds(1))
-//            .param("listSize", BM_1000000)
-            .addProfiler("gc")
+    val fileWriter = FileWriter(outputFile)
 
-    val runResults = Runner(options.build()).run()
-    printResults(runResults, impl, outputFile)
+    for (arg in args) {
+        fileWriter.appendln(arg)
+    }
+
+    fileWriter.flush()
+    fileWriter.close()
+
+//    val options = OptionsBuilder()
+////            .include("$impl.Add.addLast$")
+//            .include("$impl.Add.*")
+//            .include("$impl.Remove.*")
+//            .include("$impl.AddRemove.*")
+//            .warmupIterations(10)
+//            .measurementIterations(10)
+//            .warmupTime(TimeValue.seconds(1))
+//            .measurementTime(TimeValue.seconds(1))
+////            .param("listSize", BM_1000000)
+//            .addProfiler("gc")
+//
+//    val runResults = Runner(options.build()).run()
+//    printResults(runResults, impl, outputFile)
 }
 
 fun currentDateTime(): String {
@@ -40,13 +49,11 @@ fun printResults(runResults: Collection<RunResult>, implementation: String, outp
 
     val fileWriter = FileWriter(outputFile)
 
-    fileWriter.append(csvHeader)
-    fileWriter.append('\n')
+    fileWriter.appendln(csvHeader)
 
     for (result in runResults) {
         val row = csvRowFrom(result, implementation)
-        fileWriter.append(row)
-        fileWriter.append('\n')
+        fileWriter.appendln(row)
     }
 
     fileWriter.flush()
