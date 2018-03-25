@@ -11,15 +11,15 @@ import java.time.format.DateTimeFormatter
 fun main(args: Array<String>) {
 
     val impls = listOf(
-            "arrayList",
-            "baseline",
-            "clojurePVector",
-            "dexxPVector",
-            "javaSlangPVector",
-            "scalaPVector",
-            "rrbTree",
-            "treePVector"/*,
-            "persistentDeque"*/
+//            "arrayList",
+//            "baseline",
+//            "clojurePVector",
+//            "dexxPVector",
+//            "javaSlangPVector",
+//            "scalaPVector",
+//            "rrbTree",
+//            "treePVector",
+            "persistentDeque"
     )
 
     for (impl in impls) {
