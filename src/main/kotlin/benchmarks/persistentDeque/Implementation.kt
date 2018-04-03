@@ -12,6 +12,7 @@ const val STACK_13_IMPL = "STACK_13_IMPL"
 const val STACK_19_IMPL = "STACK_19_IMPL"
 const val STACK_19B_IMPL = "STACK_19B_IMPL"
 const val STACK_25_IMPL = "STACK_25_IMPL"
+const val STACK_25O_IMPL = "STACK_25O_IMPL"
 const val STACK_31_IMPL = "STACK_31_IMPL"
 const val STACK_32_IMPL = "STACK_32_IMPL"
 
@@ -47,6 +48,7 @@ val EMPTY_DEQUE = mapOf<String, ImmutableDeque<String>>(
         STACK_19_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize19.emptyDeque.emptyDeque(),
         STACK_19B_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize19B.emptyDeque.emptyDeque(),
         STACK_25_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize25.emptyDeque.emptyDeque(),
+        STACK_25O_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize25O.emptyDeque.emptyDeque(),
         STACK_31_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize31.emptyDeque.emptyDeque(),
         STACK_32_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize32.emptyDeque.emptyDeque(),
 
