@@ -1,5 +1,9 @@
 package benchmarks
 
+import benchmarks.persistentDeque.ARRAY_25S_IMPL
+import benchmarks.persistentDeque.ARRAY_25_IMPL
+import benchmarks.persistentDeque.INITIAL_IMPL
+import benchmarks.persistentDeque.STACK_25_IMPL
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
@@ -12,13 +16,13 @@ fun main(args: Array<String>) {
 
     val impls = listOf(
 //            "arrayList",
-//            "baseline",
+            "baseline",
 //            "clojurePVector",
-//            "dexxPVector",
+            "dexxPVector",
 //            "javaSlangPVector",
-//            "scalaPVector",
-//            "rrbTree",
-//            "treePVector",
+            "scalaPVector",
+            "rrbTree",
+            "treePVector",
             "persistentDeque"
     )
 
@@ -34,6 +38,8 @@ fun main(args: Array<String>) {
                 .measurementIterations(10)
                 .warmupTime(TimeValue.milliseconds(500))
                 .measurementTime(TimeValue.milliseconds(500))
+                .param("listSize", "10000000")
+                .param("impl", INITIAL_IMPL, STACK_25_IMPL, ARRAY_25_IMPL, ARRAY_25S_IMPL)
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()

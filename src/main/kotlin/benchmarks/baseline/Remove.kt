@@ -18,7 +18,7 @@ open class Remove {
 
     private var filledList = LinkedList<String>()
 
-    @Setup(Level.Trial)
+    @Setup(Level.Invocation)
     fun prepare() {
         filledList = LinkedList(List(listSize, { "some element" }))
     }
