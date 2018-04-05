@@ -1,52 +1,51 @@
 package benchmarks
 
-import benchmarks.persistentDeque.*
+import benchmarks.persistentDeque.STACK_25_IMPL
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
 import org.openjdk.jmh.runner.options.TimeValue
 import java.io.FileWriter
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 fun main(args: Array<String>) {
 
-    val impls = listOf(
+//    val impls = listOf(
 //            "arrayList",
-//            "baseline",
+//            "baseline"
 //            "clojurePVector",
 //            "dexxPVector",
 //            "javaSlangPVector",
 //            "scalaPVector",
 //            "rrbTree",
 //            "treePVector",
-            "persistentDeque"
-    )
+//            "persistentDeque"
+//    )
 
-    for (impl in impls) {
-        val outputFile = "teamcityArtifacts/${currentDateTime()}-$impl.csv"
+    val outputFile = "teamcityArtifacts/impls.csv"
+    val fileWriter = FileWriter(outputFile)
+    fileWriter.appendln(args.reduce { first, second -> first + "\n" + second } )
+    fileWriter.flush()
+    fileWriter.close()
 
-        val options = OptionsBuilder()
-                .include("$impl.Add.*")
-                .include("$impl.Remove.*")
-                .include("$impl.AddRemove.*")
-                .include("$impl.Iterate.*")
-                .warmupIterations(10)
-                .measurementIterations(10)
-                .warmupTime(TimeValue.milliseconds(500))
-                .measurementTime(TimeValue.milliseconds(500))
-                .param("impl", STACK_25_IMPL, STACK_25O_IMPL)
-                .addProfiler("gc")
-
-        val runResults = Runner(options.build()).run()
-        printResults(runResults, impl, outputFile)
-    }
-}
-
-fun currentDateTime(): String {
-    val dateTime = LocalDateTime.now()
-    val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd-HH:mm")
-    return dateTime.format(formatter)
+//    for (impl in impls) {
+//
+//        val options = OptionsBuilder()
+//                .jvmArgs("-Xms3072m", "-Xmx3072m")
+//                .include("$impl.Add.*")
+//                .include("$impl.Remove.*")
+//                .include("$impl.AddRemove.*")
+//                .include("$impl.Iterate.*")
+//                .warmupIterations(10)
+//                .measurementIterations(10)
+//                .warmupTime(TimeValue.milliseconds(500))
+//                .measurementTime(TimeValue.milliseconds(500))
+//                .param("impl", STACK_25_IMPL)
+//                .param("listSize", "10000000")
+//                .addProfiler("gc")
+//
+//        val runResults = Runner(options.build()).run()
+//        printResults(runResults, impl, outputFile)
+//    }
 }
 
 fun printResults(runResults: Collection<RunResult>, implementation: String, outputFile: String) {
