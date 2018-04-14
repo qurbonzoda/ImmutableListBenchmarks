@@ -1,7 +1,6 @@
 package benchmarks.cyclops.javaSlangPVector
 
 import benchmarks.*
-import com.aol.cyclops.dexx.collections.DexxPVector
 import com.aol.cyclops.javaslang.collections.JavaSlangPVector
 import org.openjdk.jmh.annotations.*
 import org.openjdk.jmh.infra.Blackhole
@@ -15,7 +14,7 @@ import java.util.concurrent.TimeUnit
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
 open class Add {
-    @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50, BM_100, BM_1000, BM_1000)
+    @Param(BM_1, BM_4, BM_10, BM_15, BM_20, BM_25, BM_35, BM_50, BM_75, BM_100, BM_1000, BM_1000)
     var listSize: Int = 0
 
     private val emptyPVector: PVector<String> = JavaSlangPVector.emptyPVector()

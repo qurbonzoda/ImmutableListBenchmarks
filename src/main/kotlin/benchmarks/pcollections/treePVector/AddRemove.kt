@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @State(Scope.Thread)
 open class AddRemove {
-    @Param(BM_1, BM_3, BM_6, BM_10, BM_15, BM_25, BM_50,
+    @Param(BM_1, BM_4, BM_10, BM_15, BM_20, BM_25, BM_35, BM_50, BM_75,
             BM_100, BM_1000, BM_10000, BM_100000, BM_1000000)
     var listSize: Int = 0
 
@@ -24,15 +24,6 @@ open class AddRemove {
         repeat(times = listSize) {
             pVector = pVector.plus("some element")
         }
-    }
-
-    @Benchmark
-    fun addFirstRemoveLast(): TreePVector<String> {
-        repeat(times = listSize shr 1) {
-            pVector = pVector.plus(0, "some element")
-            pVector = pVector.minus(pVector.size - 1)
-        }
-        return pVector
     }
 
     @Benchmark
