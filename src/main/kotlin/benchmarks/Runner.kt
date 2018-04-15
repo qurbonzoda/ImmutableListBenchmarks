@@ -1,5 +1,6 @@
 package benchmarks
 
+import benchmarks.persistentDeque.INITIAL_IMPL
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
@@ -20,6 +21,7 @@ fun main(args: Array<String>) {
                 .measurementIterations(10)
                 .warmupTime(TimeValue.milliseconds(500))
                 .measurementTime(TimeValue.milliseconds(500))
+                .param("impl", INITIAL_IMPL)
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()
