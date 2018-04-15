@@ -1,6 +1,6 @@
 package benchmarks
 
-import benchmarks.persistentDeque.INITIAL_IMPL
+import benchmarks.persistentDeque.*
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
@@ -21,7 +21,9 @@ fun main(args: Array<String>) {
                 .measurementIterations(10)
                 .warmupTime(TimeValue.milliseconds(500))
                 .measurementTime(TimeValue.milliseconds(500))
-                .param("impl", INITIAL_IMPL)
+                .param("impl", STACK_7_IMPL, STACK_8_IMPL, STACK_9_IMPL, STACK_12_IMPL, STACK_13_IMPL,
+                        STACK_19_IMPL, STACK_19B_IMPL, STACK_25_IMPL, STACK_25O_IMPL, STACK_31_IMPL,
+                        STACK_32_IMPL, STACK_48_IMPL, STACK_61_IMPL, STACK_64_IMPL, INITIAL_IMPL)
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()
@@ -53,20 +55,29 @@ fun csvRowFrom(result: RunResult, implementation: String): String {
     val allocationRate = result.secondaryResults["·gc.alloc.rate.norm"]!!.getScore() / listSize
 
     val impl = result.params.getParam("impl")
+    val (bufferType, bufferSize) = buffer(impl)
+
+    return "$implementation,$method,$listSize,$bufferType,$bufferSize,%.3f,%.3f,%.3f"
+                .format(score, scoreError, allocationRate)
+}
+
+fun buffer(impl: String?): Pair<String, String> {
     val bufferType: String
     val bufferSize: String
 
     if (impl == null) {
         bufferType = ""
         bufferSize = ""
-    } else {
+    } else if (impl.startsWith("STACK") || impl.startsWith("ARRAY")) {
         val firstDelimiter = impl.indexOfFirst { it == '_' }
         val lastDelimiter = impl.indexOfLast { it =='_' }
         val sizeEnd = firstDelimiter + 1 + impl.substring(firstDelimiter + 1).indexOfFirst { !it.isDigit() }
         bufferType = impl.substring(0, firstDelimiter) + impl.substring(sizeEnd, lastDelimiter)
         bufferSize = impl.substring(firstDelimiter + 1, sizeEnd)
+    } else {
+        bufferType = impl
+        bufferSize = ""
     }
 
-    return "$implementation,$method,$listSize,$bufferType,$bufferSize,%.3f,%.3f,%.3f"
-                .format(score, scoreError, allocationRate)
+    return Pair(bufferType, bufferSize)
 }
