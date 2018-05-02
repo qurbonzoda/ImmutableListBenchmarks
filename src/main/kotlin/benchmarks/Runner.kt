@@ -1,5 +1,8 @@
 package benchmarks
 
+import benchmarks.persistentDeque.CHILD_COUNT_2
+import benchmarks.persistentDeque.CHILD_COUNT_3
+import benchmarks.persistentDeque.CHILD_COUNT_4
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
@@ -12,15 +15,18 @@ fun main(args: Array<String>) {
         val outputFile = "teamcityArtifacts/$implementation.csv"
         val options = OptionsBuilder()
                 .jvmArgs("-Xms3072m", "-Xmx3072m")
-                .include("$implementation.Add.*")
+//                .include("$implementation.Add.*")
+                .include("$implementation.Add.addFirst$")
+                .include("$implementation.Add.addLast$")
+                .include("$implementation.Add.addFirstAddLast$")
                 .include("$implementation.Remove.*")
                 .include("$implementation.AddRemove.*")
-                .include("$implementation.Iterate.*")
+//                .include("$implementation.Iterate.*")
                 .warmupIterations(10)
                 .measurementIterations(10)
-                .warmupTime(TimeValue.milliseconds(2000))
-                .measurementTime(TimeValue.milliseconds(2000))
-                .param("listSize", "10000000")
+                .warmupTime(TimeValue.milliseconds(500))
+                .measurementTime(TimeValue.milliseconds(500))
+                .param("childCount", CHILD_COUNT_2, CHILD_COUNT_3, CHILD_COUNT_4)
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()
@@ -29,7 +35,7 @@ fun main(args: Array<String>) {
 }
 
 fun printResults(runResults: Collection<RunResult>, implementation: String, outputFile: String) {
-    val csvHeader = "Implementation,Method,listSize,bufferType,bufferSize,Score,Score Error,Allocation Rate"
+    val csvHeader = "Implementation,Method,listSize,childCount,bufferSize,Score,Score Error,Allocation Rate"
 
     val fileWriter = FileWriter(outputFile)
 
@@ -44,37 +50,15 @@ fun printResults(runResults: Collection<RunResult>, implementation: String, outp
 }
 
 fun csvRowFrom(result: RunResult, implementation: String): String {
-    val nanosInMillis = 1000
+    val nanosInMicros = 1000
     val method = result.primaryResult.getLabel()
     val listSize = result.params.getParam("listSize").toInt()
-    val score = result.primaryResult.getScore() * nanosInMillis / listSize
-    val scoreError = result.primaryResult.getScoreError() * nanosInMillis / listSize
+    val childCount = result.params.getParam("childCount").toInt()
+    val bufferSize = result.params.getParam("bufferSize").toInt()
+    val score = result.primaryResult.getScore() * nanosInMicros / listSize
+    val scoreError = result.primaryResult.getScoreError() * nanosInMicros / listSize
     val allocationRate = result.secondaryResults["·gc.alloc.rate.norm"]!!.getScore() / listSize
 
-    val impl = result.params.getParam("impl")
-    val (bufferType, bufferSize) = buffer(impl)
-
-    return "$implementation,$method,$listSize,$bufferType,$bufferSize,%.3f,%.3f,%.3f"
+    return "$implementation,$method,$listSize,$childCount,$bufferSize,%.3f,%.3f,%.3f"
                 .format(score, scoreError, allocationRate)
-}
-
-fun buffer(impl: String?): Pair<String, String> {
-    val bufferType: String
-    val bufferSize: String
-
-    if (impl == null) {
-        bufferType = ""
-        bufferSize = ""
-    } else if (impl.startsWith("STACK") || impl.startsWith("ARRAY")) {
-        val firstDelimiter = impl.indexOfFirst { it == '_' }
-        val lastDelimiter = impl.indexOfLast { it =='_' }
-        val sizeEnd = firstDelimiter + 1 + impl.substring(firstDelimiter + 1).indexOfFirst { !it.isDigit() }
-        bufferType = impl.substring(0, firstDelimiter) + impl.substring(sizeEnd, lastDelimiter)
-        bufferSize = impl.substring(firstDelimiter + 1, sizeEnd)
-    } else {
-        bufferType = impl
-        bufferSize = ""
-    }
-
-    return Pair(bufferType, bufferSize)
 }

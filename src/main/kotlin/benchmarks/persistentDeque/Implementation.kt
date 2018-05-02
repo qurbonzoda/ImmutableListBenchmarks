@@ -2,91 +2,72 @@ package benchmarks.persistentDeque
 
 import immutableDeque.ImmutableDeque
 
-const val INITIAL_IMPL = "INITIAL_IMPL"
 
-const val STACK_7_IMPL = "STACK_7_IMPL"
-const val STACK_8_IMPL = "STACK_8_IMPL"
-const val STACK_9_IMPL = "STACK_9_IMPL"
-const val STACK_12_IMPL = "STACK_12_IMPL"
-const val STACK_13_IMPL = "STACK_13_IMPL"
-const val STACK_19_IMPL = "STACK_19_IMPL"
-const val STACK_19B_IMPL = "STACK_19B_IMPL"
-const val STACK_25_IMPL = "STACK_25_IMPL"
-const val STACK_25O_IMPL = "STACK_25O_IMPL"
-const val STACK_31_IMPL = "STACK_31_IMPL"
-const val STACK_32_IMPL = "STACK_32_IMPL"
-const val STACK_48_IMPL = "STACK_48_IMPL"
-const val STACK_61_IMPL = "STACK_61_IMPL"
-const val STACK_64_IMPL = "STACK_64_IMPL"
+const val CHILD_COUNT_2 = "2"
+const val CHILD_COUNT_3 = "3"
+const val CHILD_COUNT_4 = "4"
+const val CHILD_COUNT_8 = "8"
+const val CHILD_COUNT_16 = "16"
+const val CHILD_COUNT_32 = "32"
+const val CHILD_COUNT_64 = "64"
 
-const val ARRAY_7_IMPL = "ARRAY_7_IMPL"
-const val ARRAY_7S_IMPL = "ARRAY_7S_IMPL"
-const val ARRAY_8_IMPL = "ARRAY_8_IMPL"
-const val ARRAY_8S_IMPL = "ARRAY_8S_IMPL"
-const val ARRAY_9_IMPL = "ARRAY_9_IMPL"
-const val ARRAY_9S_IMPL = "ARRAY_9S_IMPL"
-const val ARRAY_12_IMPL = "ARRAY_12_IMPL"
-const val ARRAY_12S_IMPL = "ARRAY_12S_IMPL"
-const val ARRAY_13_IMPL = "ARRAY_13_IMPL"
-const val ARRAY_13S_IMPL = "ARRAY_13S_IMPL"
-const val ARRAY_19_IMPL = "ARRAY_19_IMPL"
-const val ARRAY_19S_IMPL = "ARRAY_19S_IMPL"
-const val ARRAY_19B_IMPL = "ARRAY_19B_IMPL"
-const val ARRAY_19SB_IMPL = "ARRAY_19SB_IMPL"
-const val ARRAY_25_IMPL = "ARRAY_25_IMPL"
-const val ARRAY_25S_IMPL = "ARRAY_25S_IMPL"
-const val ARRAY_31_IMPL = "ARRAY_31_IMPL"
-const val ARRAY_31S_IMPL = "ARRAY_31S_IMPL"
-const val ARRAY_32_IMPL = "ARRAY_32_IMPL"
-const val ARRAY_32S_IMPL = "ARRAY_32S_IMPL"
-const val ARRAY_48_IMPL = "ARRAY_48_IMPL"
-const val ARRAY_48S_IMPL = "ARRAY_48S_IMPL"
-const val ARRAY_61_IMPL = "ARRAY_61_IMPL"
-const val ARRAY_61S_IMPL = "ARRAY_61S_IMPL"
-const val ARRAY_64_IMPL = "ARRAY_64_IMPL"
-const val ARRAY_64S_IMPL = "ARRAY_64S_IMPL"
+const val BUFFER_SIZE_8 = "8"
+const val BUFFER_SIZE_16 = "16"
+const val BUFFER_SIZE_32 = "32"
+const val BUFFER_SIZE_64 = "64"
+const val BUFFER_SIZE_128 = "128"
+const val BUFFER_SIZE_256 = "256"
+const val BUFFER_SIZE_512 = "512"
+const val BUFFER_SIZE_1024 = "1024"
 
-val EMPTY_DEQUE = mapOf<String, ImmutableDeque<String>>(
-        INITIAL_IMPL to immutableDeque.initial.persistentDeque.emptyDeque(),
+fun <T> emptyDeque(childCount: Int, bufferSize: Int): ImmutableDeque<T> {
+    return when(Pair(childCount, bufferSize)) {
+        Pair(2, 8)      -> immutableDeque.childCount2.bufferSize8.emptyDeque.emptyDeque()
+        Pair(2, 16)     -> immutableDeque.childCount2.bufferSize16.emptyDeque.emptyDeque()
+        Pair(2, 32)     -> immutableDeque.childCount2.bufferSize32.emptyDeque.emptyDeque()
+        Pair(2, 64)     -> immutableDeque.childCount2.bufferSize64.emptyDeque.emptyDeque()
+        Pair(2, 128)    -> immutableDeque.childCount2.bufferSize128.emptyDeque.emptyDeque()
+        Pair(2, 256)    -> immutableDeque.childCount2.bufferSize256.emptyDeque.emptyDeque()
+        Pair(2, 512)    -> immutableDeque.childCount2.bufferSize512.emptyDeque.emptyDeque()
+        Pair(2, 1024)   -> immutableDeque.childCount2.bufferSize1024.emptyDeque.emptyDeque()
 
-        STACK_7_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize7.emptyDeque.emptyDeque(),
-        STACK_8_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize8.emptyDeque.emptyDeque(),
-        STACK_9_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize9.emptyDeque.emptyDeque(),
-        STACK_12_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize12.emptyDeque.emptyDeque(),
-        STACK_13_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize13.emptyDeque.emptyDeque(),
-        STACK_19_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize19.emptyDeque.emptyDeque(),
-        STACK_19B_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize19B.emptyDeque.emptyDeque(),
-        STACK_25_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize25.emptyDeque.emptyDeque(),
-        STACK_25O_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize25O.emptyDeque.emptyDeque(),
-        STACK_31_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize31.emptyDeque.emptyDeque(),
-        STACK_32_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize32.emptyDeque.emptyDeque(),
-        STACK_48_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize48.emptyDeque.emptyDeque(),
-        STACK_61_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize61.emptyDeque.emptyDeque(),
-        STACK_64_IMPL to immutableDeque.smallDequeOptimization.stackBuffer.bufferSize64.emptyDeque.emptyDeque(),
+        Pair(3, 16)     -> immutableDeque.childCount3.bufferSize16.emptyDeque.emptyDeque()
+        Pair(3, 32)     -> immutableDeque.childCount3.bufferSize32.emptyDeque.emptyDeque()
+        Pair(3, 64)     -> immutableDeque.childCount3.bufferSize64.emptyDeque.emptyDeque()
+        Pair(3, 128)    -> immutableDeque.childCount3.bufferSize128.emptyDeque.emptyDeque()
+        Pair(3, 256)    -> immutableDeque.childCount3.bufferSize256.emptyDeque.emptyDeque()
+        Pair(3, 512)    -> immutableDeque.childCount3.bufferSize512.emptyDeque.emptyDeque()
+        Pair(3, 1024)   -> immutableDeque.childCount3.bufferSize1024.emptyDeque.emptyDeque()
 
-        ARRAY_7_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize7.emptyDeque.emptyDeque(),
-        ARRAY_7S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize7S.emptyDeque.emptyDeque(),
-        ARRAY_8_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize8.emptyDeque.emptyDeque(),
-        ARRAY_8S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize8S.emptyDeque.emptyDeque(),
-        ARRAY_9_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize9.emptyDeque.emptyDeque(),
-        ARRAY_9S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize9S.emptyDeque.emptyDeque(),
-        ARRAY_12_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize12.emptyDeque.emptyDeque(),
-        ARRAY_12S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize12S.emptyDeque.emptyDeque(),
-        ARRAY_13_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize13.emptyDeque.emptyDeque(),
-        ARRAY_13S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize13S.emptyDeque.emptyDeque(),
-        ARRAY_19_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize19.emptyDeque.emptyDeque(),
-        ARRAY_19S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize19S.emptyDeque.emptyDeque(),
-        ARRAY_19B_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize19B.emptyDeque.emptyDeque(),
-        ARRAY_19SB_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize19SB.emptyDeque.emptyDeque(),
-        ARRAY_25_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize25.emptyDeque.emptyDeque(),
-        ARRAY_25S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize25S.emptyDeque.emptyDeque(),
-        ARRAY_31_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize31.emptyDeque.emptyDeque(),
-        ARRAY_31S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize31S.emptyDeque.emptyDeque(),
-        ARRAY_32_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize32.emptyDeque.emptyDeque(),
-        ARRAY_32S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize32S.emptyDeque.emptyDeque(),
-        ARRAY_48_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize48.emptyDeque.emptyDeque(),
-        ARRAY_48S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize48S.emptyDeque.emptyDeque(),
-        ARRAY_61_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize61.emptyDeque.emptyDeque(),
-        ARRAY_61S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize61S.emptyDeque.emptyDeque(),
-        ARRAY_64_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize64.emptyDeque.emptyDeque(),
-        ARRAY_64S_IMPL to immutableDeque.smallDequeOptimization.arrayBuffer.bufferSize64S.emptyDeque.emptyDeque())
+        Pair(4, 16)     -> immutableDeque.childCount4.bufferSize16.emptyDeque.emptyDeque()
+        Pair(4, 32)     -> immutableDeque.childCount4.bufferSize32.emptyDeque.emptyDeque()
+        Pair(4, 64)     -> immutableDeque.childCount4.bufferSize64.emptyDeque.emptyDeque()
+        Pair(4, 128)    -> immutableDeque.childCount4.bufferSize128.emptyDeque.emptyDeque()
+        Pair(4, 256)    -> immutableDeque.childCount4.bufferSize256.emptyDeque.emptyDeque()
+        Pair(4, 512)    -> immutableDeque.childCount4.bufferSize512.emptyDeque.emptyDeque()
+        Pair(4, 1024)   -> immutableDeque.childCount4.bufferSize1024.emptyDeque.emptyDeque()
+
+        Pair(8, 32)     -> immutableDeque.childCount8.bufferSize32.emptyDeque.emptyDeque()
+        Pair(8, 64)     -> immutableDeque.childCount8.bufferSize64.emptyDeque.emptyDeque()
+        Pair(8, 128)    -> immutableDeque.childCount8.bufferSize128.emptyDeque.emptyDeque()
+        Pair(8, 256)    -> immutableDeque.childCount8.bufferSize256.emptyDeque.emptyDeque()
+        Pair(8, 512)    -> immutableDeque.childCount8.bufferSize512.emptyDeque.emptyDeque()
+        Pair(8, 1024)   -> immutableDeque.childCount8.bufferSize1024.emptyDeque.emptyDeque()
+
+        Pair(16, 64)    -> immutableDeque.childCount16.bufferSize64.emptyDeque.emptyDeque()
+        Pair(16, 128)   -> immutableDeque.childCount16.bufferSize128.emptyDeque.emptyDeque()
+        Pair(16, 256)   -> immutableDeque.childCount16.bufferSize256.emptyDeque.emptyDeque()
+        Pair(16, 512)   -> immutableDeque.childCount16.bufferSize512.emptyDeque.emptyDeque()
+        Pair(16, 1024)  -> immutableDeque.childCount16.bufferSize1024.emptyDeque.emptyDeque()
+
+        Pair(32, 128)   -> immutableDeque.childCount32.bufferSize128.emptyDeque.emptyDeque()
+        Pair(32, 256)   -> immutableDeque.childCount32.bufferSize256.emptyDeque.emptyDeque()
+        Pair(32, 512)   -> immutableDeque.childCount32.bufferSize512.emptyDeque.emptyDeque()
+        Pair(32, 1024)  -> immutableDeque.childCount32.bufferSize1024.emptyDeque.emptyDeque()
+
+        Pair(64, 256)   -> immutableDeque.childCount64.bufferSize256.emptyDeque.emptyDeque()
+        Pair(64, 512)   -> immutableDeque.childCount64.bufferSize512.emptyDeque.emptyDeque()
+        Pair(64, 1024)  -> immutableDeque.childCount64.bufferSize1024.emptyDeque.emptyDeque()
+        else            -> throw IllegalArgumentException()
+    }
+}

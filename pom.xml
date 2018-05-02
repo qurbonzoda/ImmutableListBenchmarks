@@ -55,7 +55,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
         <dependency>
             <groupId>com.github.qurbonzoda</groupId>
             <artifactId>PersistentDeque</artifactId>
-            <version>17644235298e3c12e777f567374cfa0520d0f367</version>
+            <version>3aed4a96f148c502dc05334c789584e3cc688ba2</version>
         </dependency>
         <dependency>
             <groupId>com.github.ilya-g</groupId>
@@ -117,7 +117,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
            Available versions are listed here:
                 http://kotlinlang.org/docs/reference/using-maven.html#plugin-and-versions
          -->
-        <kotlin.version>1.2.0</kotlin.version>
+        <kotlin.version>1.2.31</kotlin.version>
 
         <!--
             Select a JMH benchmark generator to use. Available options:
@@ -145,7 +145,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
                 <!--
                    Put an approriate Kotlin compiler version here.
                  -->
-                <version>1.2.0</version>
+                <version>1.2.31</version>
 
                 <executions>
                     <execution>
@@ -238,6 +238,22 @@ THE POSSIBILITY OF SUCH DAMAGE.
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>testCompile</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <compilerVersion>${javac.target}</compilerVersion>
                     <source>${javac.target}</source>
