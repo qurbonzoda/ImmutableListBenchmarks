@@ -1,8 +1,6 @@
 package benchmarks
 
-import benchmarks.persistentDeque.CHILD_COUNT_2
-import benchmarks.persistentDeque.CHILD_COUNT_3
-import benchmarks.persistentDeque.CHILD_COUNT_4
+import benchmarks.persistentDeque.*
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
@@ -26,7 +24,7 @@ fun main(args: Array<String>) {
                 .measurementIterations(10)
                 .warmupTime(TimeValue.milliseconds(500))
                 .measurementTime(TimeValue.milliseconds(500))
-                .param("childCount", CHILD_COUNT_2, CHILD_COUNT_3, CHILD_COUNT_4)
+                .param("childCount", CHILD_COUNT_8, CHILD_COUNT_16, CHILD_COUNT_32, CHILD_COUNT_64)
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()
