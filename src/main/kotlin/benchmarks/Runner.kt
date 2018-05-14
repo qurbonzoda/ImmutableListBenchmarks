@@ -1,6 +1,5 @@
 package benchmarks
 
-import benchmarks.persistentDeque.*
 import org.openjdk.jmh.results.RunResult
 import org.openjdk.jmh.runner.Runner
 import org.openjdk.jmh.runner.options.OptionsBuilder
@@ -14,17 +13,17 @@ fun main(args: Array<String>) {
         val options = OptionsBuilder()
                 .jvmArgs("-Xms3072m", "-Xmx3072m")
 //                .include("$implementation.Add.*")
-                .include("$implementation.Add.addFirst$")
-                .include("$implementation.Add.addLast$")
-                .include("$implementation.Add.addFirstAddLast$")
-                .include("$implementation.Remove.*")
-                .include("$implementation.AddRemove.*")
-//                .include("$implementation.Iterate.*")
+//                .include("$implementation.Add.addFirst$")
+//                .include("$implementation.Add.addLast$")
+//                .include("$implementation.Add.addFirstAddLast$")
+//                .include("$implementation.Remove.*")
+//                .include("$implementation.AddRemove.*")
+                .include("$implementation.Iterate.*")
                 .warmupIterations(10)
                 .measurementIterations(10)
                 .warmupTime(TimeValue.milliseconds(500))
                 .measurementTime(TimeValue.milliseconds(500))
-                .param("childCount", CHILD_COUNT_8, CHILD_COUNT_16, CHILD_COUNT_32, CHILD_COUNT_64)
+//                .param("childCount", CHILD_COUNT_8, CHILD_COUNT_16, CHILD_COUNT_32, CHILD_COUNT_64)
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()
