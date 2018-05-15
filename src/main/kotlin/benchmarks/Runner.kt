@@ -24,6 +24,7 @@ fun main(args: Array<String>) {
                 .warmupTime(TimeValue.milliseconds(500))
                 .measurementTime(TimeValue.milliseconds(500))
 //                .param("childCount", CHILD_COUNT_8, CHILD_COUNT_16, CHILD_COUNT_32, CHILD_COUNT_64)
+                .param("listSize", "10000000", "100000000")
                 .addProfiler("gc")
 
         val runResults = Runner(options.build()).run()
